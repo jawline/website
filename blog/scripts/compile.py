@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 
+import re
 import time
 import json
 import glob
@@ -53,7 +54,18 @@ def write_article_from_template(article):
 
         with open(final_path, 'w') as output_file:
             output_file.write(final_data) 
-                
+
+intro_regex = re.compile('<a-intro>(.*)</a-intro>');
+
+def extract_intro(article):
+    with open(article[1], 'r') as article_file:
+        article_data = article_file.read()
+        matched = intro_regex.match(article_data)
+        if matched == None:
+            return ''
+        else:
+            return matched.group(1)
+                        
 
 for file in glob.glob("articles/*.json"):
     with open(file) as f:
@@ -66,6 +78,7 @@ os.mkdir(ARTICLES_PATH)
 for article in articles:
     print("Compiling", article[0]["title"], article[0]["tags"])
     write_article_from_template(article)
+    article[0]["desc"] = extract_intro(article)
     for tag in article[0]["tags"]:
         this_tag = tag_dict.get(tag, [])
         this_tag.append(article[0])
@@ -86,9 +99,9 @@ def write_tag(tag):
     tag_dict[tag].sort(key=lambda x: float(x["create_date"]), reverse=True)
     
     for tag_item in tag_dict[tag]:
-        list_entries += LIST_ITEM_TEMPLATE.replace('{{{LI_TARGET}}}', '/articles/' + tag_item["id"]).replace('{{{LI_NAME}}}', tag_item["title"]).replace('{{{LI_TAGS}}}', ", ".join(tag_item["tags"])).replace('{{{LI_DESCRIPTION}}}', 'UNFIN').replace('{{{LI_TIME}}}', tag_item["human_time"])
+        list_entries += LIST_ITEM_TEMPLATE.replace('{{{LI_TARGET}}}', '/articles/' + tag_item["id"]).replace('{{{LI_NAME}}}', tag_item["title"]).replace('{{{LI_TAGS}}}', ", ".join(tag_item["tags"])).replace('{{{LI_DESCRIPTION}}}', tag_item["desc"]).replace('{{{LI_TIME}}}', tag_item["human_time"])
 
-    final_out = LISTS_TEMPLATE.replace('{{{LIST_TITLE}}}', tag).replace('{{{LIST_CONTENT}}}', list_entries)
+    final_out = LISTS_TEMPLATE.replace('{{{LIST_TITLE}}}', tag.capitalize()).replace('{{{LIST_CONTENT}}}', list_entries)
 
     with open(LISTS_PATH + tag + '.html', 'w') as out_file:
         out_file.write(final_out)

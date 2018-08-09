@@ -16,6 +16,10 @@
     <link href="/css/shared.css" rel="stylesheet">
     <link rel="icon" href="/img/favicon.ico">
 
+    <script>
+        document.registerElement('a-intro');
+    </script>
+
   </head>
   <body>
 
@@ -55,9 +59,9 @@
         <div class="container">
         <div class="small-gap panel panel-default">
         <div class="panel-body">
-            <h3 class="center">LJIT</h3>
+            <h2 class="center">LJIT</h2>
             <hr class="featurette-divider">
-            <p>As a recent hobby project I have been working to improve my knowledge of ahead-of-time (AOT) and just-in-time (JIT) compilers. To that end I developed a new LISP style language with a AOT compiler. The project was developed in C++ and includes a LL(1) parser, a AST structure and a AST -> Machine code JIT converter. The resulting language is a simple integer only language which supports recursion and function arguments.</p>
+            <a-intro><p>As a recent hobby project I have been working to improve my knowledge of ahead-of-time (AOT) and just-in-time (JIT) compilers. To that end I developed a new LISP style language with a AOT compiler. The project was developed in C++ and includes a LL(1) parser, a AST structure and a AST -> Machine code JIT converter. The resulting language is a simple integer only language which supports recursion and function arguments.</p></a-intro>
 
 More information and the full source code for the project is available <a href="https://github.com/jawline/LJIT/">here</a>
 
