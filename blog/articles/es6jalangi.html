@@ -1,0 +1,9 @@
+<p>As part of a recent piece of work with ExpoSE we found that Jalangi2 often fails to analyze JavaScript programs which use features from recent JavaScript standards. In particular, a common point of failure is the use of <b>let</b> or <b>const</b> keywords. As such, we were unable to analyze a large number of the libraries we downloaded from the <b>NPM</b> package manager.</p>
+
+<p>In order to overcome these shortcomings quickly we developed a quick-fix solution using the JavaScript transpiler <b>Babel</b>. We modified Jalangi2 directly, rather than calling Babel from the <b>instrumentCodePre</b> callback so that we would have a generic solution for all our analysis. Additionally, we encountered issues with portions of Babel being analyzed by Jalangi2 at runtime when invoked this way. In order to achieve this we had to find all points in Jalangi2 in which a program can be instrumented and ensure that Babel rewrites all source code prior to the program instrumentation.</p>
+
+<p>When we implemented this approach we found that transpilation time was incredibly slow (upwards of 30 seconds per source file). This was caused by Jalangi2 attempting to instrument the entirety of Babel while performing program transpilation. We discovered this was due to the lazy evaluation of Babel dependencies at runtime. Our mitigation for this is to find every entry-point to Jalangi2 and ensure that transpilation of an empty source-file is done before the initial analysis is loaded.</p>
+
+<p>One significant limitation of this change is that Jalangi2 no longer works when attempting to analyze dynamically evaluated code through the use of a MITMProxy, though we have some upcoming work which should mitigate this.</p>
+
+<p>Source code available <a href="https://github.com/ExpoSEJS/jalangi2">here</a></p>
