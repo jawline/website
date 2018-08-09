@@ -11,14 +11,46 @@ LISTS_PATH=OUT_PATH + 'lists/';
 
 print("Blog compiler started")
 
+#SETUP GLOBAL TEMPLATES
+
+NAV_TEMPLATE = '';
+
+with open('templates/nav.html', 'r') as template_file:
+    NAV_TEMPLATE = template_file.read()
+
+def rtemp(file):
+    with open(file, 'r') as template_file:
+        return template_file.read().replace('{{{NAV_BAR_CONTENT}}}', NAV_TEMPLATE)
+
+ARTICLE_TEMPLATE = rtemp('templates/article.html')
+INDEX_TEMPLATE = rtemp('templates/index.html')
+
+#END GLOBAL TEMPLATES
+
 if os.path.isdir(OUT_PATH):
     print("Removed existing bin")
     rmtree(OUT_PATH)
 
+#Construct the initial state of the output path
 copytree("resources/", OUT_PATH)
 
+#Keep track of articles and tags
 articles = []
 tag_dict = {};
+
+def write_article_from_template(article):
+    final_path = ARTICLES_PATH + article[0]["id"] + ".html";
+    with open(article[1], 'r') as article_file:
+        article_data = article_file.read()
+        final_data = ARTICLE_TEMPLATE;
+        final_data = final_data.replace('{{{ARTICLE_CONTENT}}}', article_data)
+        final_data = final_data.replace('{{{ARTICLE_TITLE}}}', article[0]["title"])
+        final_data = final_data.replace('{{{ARTICLE_DATE}}}', article[0]["date"])
+        final_data = final_data.replace('{{{ARTICLE_TAGS}}}', ', '.join(article[0]["tags"]))
+
+        with open(final_path, 'w') as output_file:
+            output_file.write(final_data) 
+                
 
 for file in glob.glob("articles/*.json"):
     with open(file) as f:
@@ -29,8 +61,7 @@ os.mkdir(ARTICLES_PATH)
 
 for article in articles:
     print("Compiling", article[0]["title"], article[0]["tags"])
-    copyfile(article[1], ARTICLES_PATH + article[0]["id"] + ".html")
-
+    write_article_from_template(article)
     for tag in article[0]["tags"]:
         this_tag = tag_dict.get(tag, [])
         this_tag.append(article[0])
@@ -50,4 +81,5 @@ for tag in tag_dict.keys():
 with open(OUT_PATH + 'global.json', 'w') as f:
     json.dump({ "articles": articles, "tags": tag_dict }, f)
 
-copyfile("templates/index.html", OUT_PATH + 'index.html')
+with open(OUT_PATH + 'index.html', 'w') as f:
+    f.write(INDEX_TEMPLATE)
