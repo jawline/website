@@ -1,5 +1,6 @@
 {
-	title: "Scribble",
-	date: "2013 to 2015",
-    tags: ["projects", "research"]
+	"title": "Scribble",
+    "id": "scribble",
+	"date": "2013 to 2015",
+    "tags": ["projects", "research"]
 }
