@@ -58,22 +58,16 @@
         <div class="container">
         <div class="small-gap panel panel-default">
         <div class="panel-body">
-            <h2 class="center">Analyzing modern (ES6) JavaScript with Jalangi2</h2>
+            <h2 class="center">A Solution to Compression Oracles on the Web - Cloudflare</h2>
             <hr class="featurette-divider">
-            <a-intro><p>As part of a recent piece of work with ExpoSE we found that Jalangi2 often fails to analyze JavaScript programs which use features from recent JavaScript standards. In particular, a common point of failure is the use of let or const keywords. As such, we were unable to analyze a large number of the libraries we downloaded from the NPM package manager.</p></a-intro>
+            <a-intro><p>Compression is often considered an essential tool when reducing the bandwidth usage of internet services. The impact that the use of such compression schemes can have on security, however, has often been overlooked. The recently detailed CRIME, BREACH, TIME and HEIST attacks on TLS have shown that if an attacker can make requests on behalf of a user then secret information can be extracted from encrypted messages using only the length of the response. Deciding whether an element of a web-page should be secret often depends on the content of the page, however there are some common elements of web-pages which should always remain secret such as Cross-Site Request Forgery (CSRF) tokens. Such tokens are used to ensure that malicious webpages cannot forge requests from a user by enforcing that any request must contain a secret token included in a previous response.</p><p>I worked at Cloudflare last summer to investigate possible solutions to this problem. The result is a project called cf-nocompress. The aim of this project was to develop a tool which automatically mitigates instances of the attack, in particular CSRF extraction, on Cloudflare hosted services transparently without significantly impacting the effectiveness of compression. We have published a proof-of-concept implementation on GitHub, and provide a challenge site and tool which demonstrates the attack in action).</p></a-intro>
 
-<p>In order to overcome these shortcomings quickly we developed a quick-fix solution using the JavaScript transpiler Babel. We modified Jalangi2 directly, rather than calling Babel from the instrumentCodePre callback so that we would have a generic solution for all our analysis. Additionally, we encountered issues with portions of Babel being analyzed by Jalangi2 at runtime when invoked this way. In order to achieve this we had to find all points in Jalangi2 in which a program can be instrumented and ensure that Babel rewrites all source code prior to the program instrumentation.</p>
-
-<p>When we implemented this approach we found that transpilation time was incredibly slow (upwards of 30 seconds per source file). This was caused by Jalangi2 attempting to instrument the entirety of Babel while performing program transpilation. We discovered this was due to the lazy evaluation of Babel dependencies at runtime. Our mitigation for this is to find every entry-point to Jalangi2 and ensure that transpilation of an empty source-file is done before the initial analysis is loaded.</p>
-
-<p>One significant limitation of this change is that Jalangi2 no longer works when attempting to analyze dynamically evaluated code through the use of a MITMProxy, though we have some upcoming work which should mitigate this.</p>
-
-<p>Source code available <a href="https://github.com/ExpoSEJS/jalangi2">here</a></p>
+<p>A full account of my work can be read <a href="https://blog.cloudflare.com/a-solution-to-compression-oracles-on-the-web/">here</a>, on the Cloudflare Blog</p>
 
             <hr class="featurette-divider">
             <div>
-                <small>Tags: research</small>
-                <small>Created On: 2018-08-09 16:41:07</small>
+                <small>Tags: work, research</small>
+                <small>Created On: 2018-08-09 16:43:42</small>
             </div>
         </div>
         </div>

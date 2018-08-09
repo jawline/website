@@ -58,22 +58,14 @@
         <div class="container">
         <div class="small-gap panel panel-default">
         <div class="panel-body">
-            <h2 class="center">Analyzing modern (ES6) JavaScript with Jalangi2</h2>
+            <h2 class="center">Runnymede Explored - National Trust</h2>
             <hr class="featurette-divider">
-            <a-intro><p>As part of a recent piece of work with ExpoSE we found that Jalangi2 often fails to analyze JavaScript programs which use features from recent JavaScript standards. In particular, a common point of failure is the use of let or const keywords. As such, we were unable to analyze a large number of the libraries we downloaded from the NPM package manager.</p></a-intro>
-
-<p>In order to overcome these shortcomings quickly we developed a quick-fix solution using the JavaScript transpiler Babel. We modified Jalangi2 directly, rather than calling Babel from the instrumentCodePre callback so that we would have a generic solution for all our analysis. Additionally, we encountered issues with portions of Babel being analyzed by Jalangi2 at runtime when invoked this way. In order to achieve this we had to find all points in Jalangi2 in which a program can be instrumented and ensure that Babel rewrites all source code prior to the program instrumentation.</p>
-
-<p>When we implemented this approach we found that transpilation time was incredibly slow (upwards of 30 seconds per source file). This was caused by Jalangi2 attempting to instrument the entirety of Babel while performing program transpilation. We discovered this was due to the lazy evaluation of Babel dependencies at runtime. Our mitigation for this is to find every entry-point to Jalangi2 and ensure that transpilation of an empty source-file is done before the initial analysis is loaded.</p>
-
-<p>One significant limitation of this change is that Jalangi2 no longer works when attempting to analyze dynamically evaluated code through the use of a MITMProxy, though we have some upcoming work which should mitigate this.</p>
-
-<p>Source code available <a href="https://github.com/ExpoSEJS/jalangi2">here</a></p>
+            <a-intro><p>Throughout 2013 and 2014 I was part of a small agile development team which was tasked with creating a program capable of giving historical information on walks through the Magna Carta site in preparation for the 800 year anniversary of its signing.</p><p>The project required the development of a visual editor, a web frontend, an Android and iPhone application and a server backend. All of the application front ends and the editor interacted with a server which enabled us to easily create and display a large database of information about the site in a formatted way.</p><p>The server also allowed the entire database to be dumped in JSON, which allowed for offline viewing of the walks, an important feature as the Magna Carta site had limited wireless data coverage.</p></a-intro>
 
             <hr class="featurette-divider">
             <div>
-                <small>Tags: research</small>
-                <small>Created On: 2018-08-09 16:41:07</small>
+                <small>Tags: work</small>
+                <small>Created On: 2018-08-09 16:26:56</small>
             </div>
         </div>
         </div>
