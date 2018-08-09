@@ -55,7 +55,7 @@ def write_article_from_template(article):
         with open(final_path, 'w') as output_file:
             output_file.write(final_data) 
 
-intro_regex = re.compile('<a-intro>(.*)</a-intro>');
+intro_regex = re.compile('<a-intro>(.*)</a-intro>', re.DOTALL);
 
 def extract_intro(article):
     with open(article[1], 'r') as article_file:
