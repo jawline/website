@@ -8,7 +8,6 @@ from shutil import rmtree, copyfile, copytree
 
 id_field = input("ID: ")
 title = input("Title: ")
-date = input("Date: ")
 
 tags = []
 
@@ -27,7 +26,6 @@ with open('articles/' + id_field + '.json', 'w') as out_file:
     json.dump({
         "id": id_field,
         "title": title,
-        "date": date,
         "create_date": time.time(),
         "tags": tags
     }, out_file)
