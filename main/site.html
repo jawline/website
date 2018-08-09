@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en" ng-app="imcluelessSite">
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta name="keywords" content="HTML,CSS,XML,JavaScript,C,C++,Blake,Loring,Blake Loring,Programming,Programmer,Software,Software Engineer">
+    <link href="./dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/site.css" rel="stylesheet">
+    <link href="css/shared.css" rel="stylesheet">
+    <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
+    <link rel="icon" href="./img/favicon.ico">
+    <title>Blake Loring</title>
+</head>
+
+<body class="page-background">
+	<div class="site-wrapper">
+        <nav class="mynav navbar navbar-default navbar-enabled" role="navigation">
+
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="header-return navbar-header">
+                <ul class="masthead-nav nav navbar-nav">
+                    <li>
+                        <a href="/">
+                            <h3 class="masthead-brand">
+                                <span class="head-center-span">Blake Loring</span>
+                            </h3>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="navbar">
+                <ul class="masthead-nav nav navbar-nav">
+                    <li><a href="#/work"><span class="head-link-span">Experience</span></a></li>
+                    <li><a href="#/research"><span class="head-link-span">Research</span></a></li>
+                    <li><a href="#/projects"><span class="head-link-span">Portfolio</span></a></li>
+		            <li><a href="#/about"><span class="head-link-span">About</span></a></li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </nav>
+
+	   <div class="parsed-body" data-ng-view id="ng-view"></div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="lib/angular/angular.js"></script>
+    <script src="lib/angular/angular-route.js"></script>
+    <script src="lib/angular/angular-animate.js"></script>
+    <script src="js/app.js"></script>
+    <script src="js/services.js"></script>
+    <script src="js/controllers.js"></script>
+    <script src="js/directives.js"></script>
+</body>
+
+</html>

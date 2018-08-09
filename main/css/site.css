@@ -1,0 +1,92 @@
+.mainsite-header {
+  margin-left: 15px;
+}
+
+.mynav {
+  color: white;
+  height: 44px !important;
+  min-height: 44px !important;
+}
+
+.parsed-body h1 {font-size:18px;}
+.parsed-body h2 {font-size:18px;}
+.parsed-body h3 {font-size:15px;}
+.parsed-body a { color: #ff6e00; }
+.parsed-body a:hover { color: #ff6e00; opacity: 0.6; }
+.parsed-body p { font-size:15px; }
+.parsed-body {
+  width: 90%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+@media (min-width: 992px) {
+  .parsed-body {
+    width: 70%;
+  }
+}
+
+
+.parsed-body .container {
+  width: 100%;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+/** Bootstrap overides */
+.navbar-default {
+	margin: 0px;
+	border-radius: 0px;
+	padding: 0px;
+	border: 0;
+}
+
+.container .panel-default {
+  border-radius: 0px;
+  border-color: #F1F1F1;
+  box-shadow: 0 0 0 0;
+  -webkit-box-shadow: 0 0 0 0;
+}
+
+.navbar-nav > li > a, .navbar-brand {
+    padding-top:4px !important; 
+    padding-bottom:0 !important;
+    height: 40px;
+}
+
+.navbar-nav {
+  margin: 0;
+}
+
+div#navbar.collapse.navbar-collapse, div.navbar-header, .navbar {
+  height: 44px !important;
+  min-height:44px !important;
+}
+
+.panel-default .panel-body h2 {
+  text-align: center;
+}
+
+.panel-default .panel-body div {
+  padding: 0;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.container hr {
+  border-top-color: #F1F1F1;
+  width: 75%;
+}
+
+.container hr {
+  margin-top: 3px;
+  margin-bottom: 15px;
+}
+
+.small-gap {
+ margin-top: 1.5em;
+}
+
+.navbar ul {
+  text-align: center;
+}
