@@ -3,7 +3,7 @@
 import json
 import glob
 import os
-from shutil import rmtree, copyfile
+from shutil import rmtree, copyfile, copytree
 
 OUT_PATH="./bin/"
 ARTICLES_PATH=OUT_PATH + 'articles/';
@@ -15,7 +15,7 @@ if os.path.isdir(OUT_PATH):
     print("Removed existing bin")
     rmtree(OUT_PATH)
 
-os.mkdir(OUT_PATH)
+copytree("resources/", OUT_PATH)
 
 articles = []
 tag_dict = {};
@@ -49,3 +49,5 @@ for tag in tag_dict.keys():
 
 with open(OUT_PATH + 'global.json', 'w') as f:
     json.dump({ "articles": articles, "tags": tag_dict }, f)
+
+copyfile("templates/index.html", OUT_PATH + 'index.html')
