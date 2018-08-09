@@ -7,12 +7,15 @@ from shutil import rmtree, copyfile
 
 OUT_PATH="./bin/"
 ARTICLES_PATH=OUT_PATH + 'articles/';
+LISTS_PATH=OUT_PATH + 'lists/';
 
 print("Blog compiler started")
 
 if os.path.isdir(OUT_PATH):
     print("Removed existing bin")
     rmtree(OUT_PATH)
+
+os.mkdir(OUT_PATH)
 
 articles = []
 tag_dict = {};
@@ -22,8 +25,7 @@ for file in glob.glob("articles/*.json"):
         data = json.load(f)
         articles.append([data, file.replace(".json", ".html")])
 
-os.mkdir(OUT_PATH)
-os.mkdir(ARTICLES_PATH);
+os.mkdir(ARTICLES_PATH)
 
 for article in articles:
     print("Compiling", article[0]["title"], article[0]["tags"])
@@ -36,5 +38,14 @@ for article in articles:
 
 print("Compiled all articles")
 
+print("Beginning list construction")
+
+os.mkdir(LISTS_PATH)
+
 for tag in tag_dict.keys():
-    print(tag, tag_dict[tag])
+    print("Writing list", tag)
+    with open(LISTS_PATH + tag + '.json', 'w') as f:
+        json.dump(tag_dict[tag], f)
+
+with open(OUT_PATH + 'global.json', 'w') as f:
+    json.dump({ "articles": articles, "tags": tag_dict }, f)
