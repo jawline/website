@@ -70,6 +70,7 @@ for article in articles:
         tag_dict[tag] = this_tag
 
 print("Compiled all articles")
+#End of articles block
 
 # Responsible for list construction
 print("Beginning list construction")
@@ -77,7 +78,15 @@ print("Beginning list construction")
 os.mkdir(LISTS_PATH)
 
 def write_tag(tag):
-    final_out = LISTS_TEMPLATE.replace('{{{LIST_TITLE}}}', tag)
+
+    list_entries = '';
+    
+    tag_dict[tag].sort(key=lambda x: float(x["create_date"]), reverse=True)
+    
+    for tag_item in tag_dict[tag]:
+        list_entries += LIST_ITEM_TEMPLATE.replace('{{{LI_TARGET}}}', '/articles/' + tag_item["id"]).replace('{{{LI_NAME}}}', tag_item["title"])
+
+    final_out = LISTS_TEMPLATE.replace('{{{LIST_TITLE}}}', tag).replace('{{{LIST_CONTENT}}}', list_entries)
     with open(LISTS_PATH + tag + '.html', 'w') as out_file:
         out_file.write(final_out)
 

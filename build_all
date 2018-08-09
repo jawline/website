@@ -1,0 +1,4 @@
+(cd blog; ./scripts/compile.py)
+rm -rf main
+cp -r ./blog/bin ./main
+rm -rf blog/bin

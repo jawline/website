@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Blake Loring, software developer. My personal website">
+    <meta name="author" content="Blake Loring">
+
+    <title>Blake Loring</title>
+
+    <script src="/js/jquery.js"></script>
+
+    <link href="/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/css/site.css" rel="stylesheet">
+    <link href="/css/shared.css" rel="stylesheet">
+    <link rel="icon" href="/img/favicon.ico">
+
+  </head>
+  <body>
+
+<div class="site-wrapper">
+  <div class="site-wrapper-inner">
+
+    <nav class="mynav navbar navbar-default navbar-enabled" role="navigation">
+
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="header-return navbar-header">
+            <ul class="masthead-nav nav navbar-nav">
+                <li>
+                    <a href="/">
+                        <h3 class="masthead-brand">
+                            <span class="head-center-span">Blake Loring</span>
+                        </h3>
+                    </a>
+                </li>
+            </ul>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="navbar">
+            <ul class="masthead-nav nav navbar-nav">
+                <li><a href="/articles/work">Experience</a></li>
+<li><a href="/lists/research">Research</a></li>
+<li><a href="/lists/projects">Portfolio</a></li>
+<li><a href="/articles/aboutme">About</a></li>
+
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+
+    </nav>
+
+      <div class="parsed-body">
+        <div class="container">
+        <div class="small-gap panel panel-default">
+        <div class="panel-body">
+            <h3 class="center">Analyzing modern (ES6) JavaScript with Jalangi2 - 2018</h3>
+            <hr class="featurette-divider">
+            <p>As part of a recent piece of work with ExpoSE we found that Jalangi2 often fails to analyze JavaScript programs which use features from recent JavaScript standards. In particular, a common point of failure is the use of <b>let</b> or <b>const</b> keywords. As such, we were unable to analyze a large number of the libraries we downloaded from the <b>NPM</b> package manager.</p>
+
+<p>In order to overcome these shortcomings quickly we developed a quick-fix solution using the JavaScript transpiler <b>Babel</b>. We modified Jalangi2 directly, rather than calling Babel from the <b>instrumentCodePre</b> callback so that we would have a generic solution for all our analysis. Additionally, we encountered issues with portions of Babel being analyzed by Jalangi2 at runtime when invoked this way. In order to achieve this we had to find all points in Jalangi2 in which a program can be instrumented and ensure that Babel rewrites all source code prior to the program instrumentation.</p>
+
+<p>When we implemented this approach we found that transpilation time was incredibly slow (upwards of 30 seconds per source file). This was caused by Jalangi2 attempting to instrument the entirety of Babel while performing program transpilation. We discovered this was due to the lazy evaluation of Babel dependencies at runtime. Our mitigation for this is to find every entry-point to Jalangi2 and ensure that transpilation of an empty source-file is done before the initial analysis is loaded.</p>
+
+<p>One significant limitation of this change is that Jalangi2 no longer works when attempting to analyze dynamically evaluated code through the use of a MITMProxy, though we have some upcoming work which should mitigate this.</p>
+
+<p>Source code available <a href="https://github.com/ExpoSEJS/jalangi2">here</a></p>
+
+            <hr class="featurette-divider">
+            <div>
+                <small>Tags: research</small>
+            </div>
+        </div>
+        </div>
+        </div>
+      </div>
+
+      <div class="mastfoot">
+        <div>
+          <p>&copy; Blake Loring 2018</p>
+        </div>
+      </div>
+  </div>
+</div>
+
+    <script src="/js/bootstrap.min.js"></script>
+  </body>
+</html>
