@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 
+import time
 import json
 import glob
 import os
@@ -47,8 +48,8 @@ def write_article_from_template(article):
         final_data = ARTICLE_TEMPLATE;
         final_data = final_data.replace('{{{ARTICLE_CONTENT}}}', article_data)
         final_data = final_data.replace('{{{ARTICLE_TITLE}}}', article[0]["title"])
-        final_data = final_data.replace('{{{ARTICLE_DATE}}}', article[0]["date"])
         final_data = final_data.replace('{{{ARTICLE_TAGS}}}', ', '.join(article[0]["tags"]))
+        final_data = final_data.replace('{{{ARTICLE_TIME}}}', article[0]["human_time"])
 
         with open(final_path, 'w') as output_file:
             output_file.write(final_data) 
@@ -57,6 +58,7 @@ def write_article_from_template(article):
 for file in glob.glob("articles/*.json"):
     with open(file) as f:
         data = json.load(f)
+        data["human_time"] = time.strftime('%Y-%m-%d %H:%M:%S', time.gmtime(float(data['create_date'])))
         articles.append([data, file.replace(".json", ".html")])
 
 os.mkdir(ARTICLES_PATH)
@@ -84,9 +86,10 @@ def write_tag(tag):
     tag_dict[tag].sort(key=lambda x: float(x["create_date"]), reverse=True)
     
     for tag_item in tag_dict[tag]:
-        list_entries += LIST_ITEM_TEMPLATE.replace('{{{LI_TARGET}}}', '/articles/' + tag_item["id"]).replace('{{{LI_NAME}}}', tag_item["title"])
+        list_entries += LIST_ITEM_TEMPLATE.replace('{{{LI_TARGET}}}', '/articles/' + tag_item["id"]).replace('{{{LI_NAME}}}', tag_item["title"]).replace('{{{LI_TAGS}}}', ", ".join(tag_item["tags"])).replace('{{{LI_DESCRIPTION}}}', 'UNFIN').replace('{{{LI_TIME}}}', tag_item["human_time"])
 
     final_out = LISTS_TEMPLATE.replace('{{{LIST_TITLE}}}', tag).replace('{{{LIST_CONTENT}}}', list_entries)
+
     with open(LISTS_PATH + tag + '.html', 'w') as out_file:
         out_file.write(final_out)
 
