@@ -24,6 +24,8 @@ def rtemp(file):
 
 ARTICLE_TEMPLATE = rtemp('templates/article.html')
 INDEX_TEMPLATE = rtemp('templates/index.html')
+LISTS_TEMPLATE = rtemp('templates/list.html')
+LIST_ITEM_TEMPLATE = rtemp('templates/list_item.html')
 
 #END GLOBAL TEMPLATES
 
@@ -69,14 +71,25 @@ for article in articles:
 
 print("Compiled all articles")
 
+# Responsible for list construction
 print("Beginning list construction")
 
 os.mkdir(LISTS_PATH)
+
+def write_tag(tag):
+    final_out = LISTS_TEMPLATE.replace('{{{LIST_TITLE}}}', tag)
+    with open(LISTS_PATH + tag + '.html', 'w') as out_file:
+        out_file.write(final_out)
 
 for tag in tag_dict.keys():
     print("Writing list", tag)
     with open(LISTS_PATH + tag + '.json', 'w') as f:
         json.dump(tag_dict[tag], f)
+    write_tag(tag)
+
+#End of lists construction
+
+print("Generating index")
 
 with open(OUT_PATH + 'global.json', 'w') as f:
     json.dump({ "articles": articles, "tags": tag_dict }, f)
