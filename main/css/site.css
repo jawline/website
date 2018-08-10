@@ -9,28 +9,28 @@
 }
 
 .parsed-body h1 {font-size:18px;}
-.parsed-body h2 {font-size:18px;}
+.parsed-body h2 {font-size:18px; margin-top: 0px; text-align: center; }
 .parsed-body h3 {font-size:15px;}
 .parsed-body a { color: #ff6e00; }
 .parsed-body a:hover { color: #ff6e00; opacity: 0.6; }
 .parsed-body p { font-size:15px; }
 .parsed-body {
-  width: 90%;
+  width: 99%;
   margin-left: auto;
   margin-right: auto;
 }
 
 @media (min-width: 992px) {
   .parsed-body {
-    width: 70%;
+    width: 99%;
   }
 }
 
 
 .parsed-body .container {
   width: 100%;
-  padding-left: 10px;
-  padding-right: 10px;
+  padding-left: 2px;
+  padding-right: 2px;
 }
 
 /** Bootstrap overides */
@@ -63,10 +63,6 @@ div#navbar.collapse.navbar-collapse, div.navbar-header, .navbar {
   min-height:44px !important;
 }
 
-.panel-default .panel-body h2 {
-  text-align: center;
-}
-
 .panel-default .panel-body div {
   padding: 0;
   margin-left: auto;
@@ -75,7 +71,7 @@ div#navbar.collapse.navbar-collapse, div.navbar-header, .navbar {
 
 .container hr {
   border-top-color: #F1F1F1;
-  width: 75%;
+  width: 99%;
 }
 
 .container hr {

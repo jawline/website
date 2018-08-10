@@ -46,7 +46,8 @@
             <ul class="masthead-nav nav navbar-nav">
                 <li><a href="/lists/work"><span class="head-link-span">Experience</span></a></li>
 <li><a href="/lists/research"><span class="head-link-span">Research</span></a></li>
-<li><a href="/lists/projects"><span class="head-link-span">Portfolio</span></a></li>
+<li><a href="/lists/projects"><span class="head-link-span">Projects</span></a></li>
+<li><a href="/lists/tutorials"><span class="head-link-span">Tutorials</span></a></li>
 
             </ul>
         </div>
@@ -58,7 +59,7 @@
         <div class="container">
         <div class="small-gap panel panel-default">
         <div class="panel-body">
-            <h2 class="center">ExpoSE - Dynamic Symbolic Execution (DSE) of JavaScript</h2>
+            <h2 class="center">ExpoSE: Practical Symbolic Execution of Standalone JavaScript</h2>
             <hr class="featurette-divider">
             <a-intro>
 
@@ -100,6 +101,8 @@ JavaScript also supports several different mechanisms which allow for run-time c
 Finally, JavaScript programs heavily rely on string and regular expression functions for typical use-cases. Support for these complex data-types in SMT solvers is incomplete, and support for capture groups and backreferences requires extensive rewriting.</p>
 
 <p>ExpoSE avoids the issue of interpreter instrumentation by using the Jalangi2 framework. Jalangi2 is a source-code instrumentation framework that rewrites a program at the source-code level, rather then instrumenting the interpreter, to achieve analysis. It supports symbolic execution of strings and regular expressions (including backreferences and capture groups) through a complicated encoding in <a href="/articles/z3javascript">Z3Javascript</a>. Code which uses asynchronous callbacks in JavaScript is fully supported, although in some cases the non-deterministic execution of callbacks can cause issues. Execution is parellized through the use of our Distributor program, which leads to dramatic performance increases in practice.</p>
+
+The paper is available <a href="http://www.cs.rhul.ac.uk/home/kinder/papers/spin17-expose.pdf">here</a> 
 
 The project is open source and the source code can be found <a href="github.com/ExpoSEJS/">here</a>
 
