@@ -79,10 +79,11 @@ for article in articles:
     print("Compiling", article[0]["title"], article[0]["tags"])
     write_article_from_template(article)
     article[0]["desc"] = extract_intro(article)
-    for tag in article[0]["tags"]:
-        this_tag = tag_dict.get(tag, [])
-        this_tag.append(article[0])
-        tag_dict[tag] = this_tag
+    if article[0].get("hidden", False) == False:
+        for tag in article[0]["tags"]:
+            this_tag = tag_dict.get(tag, [])
+            this_tag.append(article[0])
+            tag_dict[tag] = this_tag
 
 print("Compiled all articles")
 #End of articles block
