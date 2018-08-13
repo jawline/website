@@ -1,1 +1,44 @@
-<a-intro><p>Coming Soon</p></a-intro>
+<a-intro>
+
+<p>
+As part of a recent migration away from angular I decided to develop an entirely static website which only depended on bootstrap and jQuery.
+</p>
+
+</a-intro>
+
+<h3>Scoping the project</h3>
+
+Design goals:
+<ul>
+    <li>Easy article addition</li>
+    <li>Lists of articles based on tags</li>
+    <li>Static site generation during deployment</li>
+</ul>  
+
+Ignored for now:
+<ul>
+    <li>Pagination</li>
+    <li>Search</li>
+</ul>
+
+<h3>General Design</h3>
+
+Split my website into static files (css / images / js), template files (article template, index template), and article files (HTML fragments with accompanying JSON used as a description of the article), with each getting their own folder. Lists will be automatically inferred from the articles. 
+
+<h3>Implementation</h3>
+
+Use Python. Grab the list of articles from articles/*.json. Create a list of lists from tags on the articles. Then construct a final compiled output by copying resources to a new directory and writing articles and lists using the template files provided.
+
+<h3>Resource Files</h3>
+
+<h3>Template Files</h3>
+
+<h3>Article Generation</h3>
+
+<h3>List Generation</h3>
+
+<h3>Index Generation</h3>
+
+<h3>Conclusion</h3>
+
+Looks nice, simple to modify, cheap to serve. Source code available.
