@@ -135,7 +135,9 @@ return result;</code></pre>
 echo "console.log('Hello World')" >> $1
 </code></pre>
 
-<p>If we execute our Chromium build with the environment variable <code>INSTR_PATH=our_bash_script</code> we should see that Hello World is logged as every JavaScript file in parsed within webpages. Unfortunately, instead we see that each file open fails. This is a result of Chromium's sandboxing policy - which prevents the V8 parser of a webpage from writing to temporary files. To disable this policy we need to execute our Chromium instance with the <code>--no-sandbox</code> flag. After enabling this flag we should see 'Hello World' in each webpages logs.</p>
+<p>If we execute our Chromium build with the environment variable <code>INSTR_PATH=our_bash_script</code> we should see that Hello World is logged as every JavaScript file in parsed within webpages. Unfortunately, instead we see that each file open fails. This is a result of Chromium's sandboxing policy - which prevents the V8 parser of a webpage from writing to temporary files. To disable this policy we need to execute our Chromium instance with the <code>--no-sandbox</code> flag. After enabling this flag we should see 'Hello World' in each web page log:</p>
+
+<pre><code>[74489:775:0814/104653.194963:INFO:CONSOLE(61)] "Hello World", source: https://cdn.static.zdbb.net/eu/js/z0WVjCBSEeGLoxIxOQVEwQ.min.js (61)</code></pre>
 
 <h3>Conclusions</h3>
 
