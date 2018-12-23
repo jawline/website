@@ -4,9 +4,9 @@ threadsafe: no
 
 handlers:
 
-- url: /(.*\.(gif|png|jpg|ico|js|css|ttf|ogg|mp4|json|otf|webp))$
+- url: /(.*\.(gif|pdf|png|jpg|ico|js|css|ttf|ogg|mp4|json|otf|webp))$
   static_files: main/\1
-  upload: main/.*\.(gif|png|jpg|ico|js|css|ttf|ogg|mp4|json|otf|webp)$
+  upload: main/.*\.(gif|pdf|png|jpg|ico|js|css|ttf|ogg|mp4|json|otf|webp)$
 
 - url: /robots.txt
   static_files: robots.txt

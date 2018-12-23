@@ -39,6 +39,20 @@ Finally, JavaScript programs heavily rely on string and regular expression funct
 
 <p>ExpoSE avoids the issue of interpreter instrumentation by using the Jalangi2 framework. Jalangi2 is a source-code instrumentation framework that rewrites a program at the source-code level, rather then instrumenting the interpreter, to achieve analysis. It supports symbolic execution of strings and regular expressions (including backreferences and capture groups) through a complicated encoding in <a href="/articles/z3javascript">Z3Javascript</a>. Code which uses asynchronous callbacks in JavaScript is fully supported, although in some cases the non-deterministic execution of callbacks can cause issues. Execution is parellized through the use of our Distributor program, which leads to dramatic performance increases in practice.</p>
 
-The paper is available <a href="http://www.cs.rhul.ac.uk/home/kinder/papers/spin17-expose.pdf">here</a> 
+<h3>Publications</h3>
+<hr>
 
-The project is open source and the source code can be found <a href="github.com/ExpoSEJS/">here</a>
+<a href="/papers/practical_dse.pdf">ExpoSE: Practical Symbolic Execution of Standalone JavaScript</a><br/> 
+<a href="/papers/sound_regex_in_js.pdf">Sound Regular Expression Semantics for Dynamic Symbolic Execution of JavaScript</a>
+
+<h3>Resources</h3>
+<hr>
+
+<a href="github.com/ExpoSEJS/">GitHub Source Code</a>
+
+<h3>Tutorials</h3>
+<hr>
+
+<a href="/articles/expose_quickstart">A Quick Start Guide to ExpoSE</a></br>
+<a href="/articles/expose_high_fidelity_logs">Logging in ExpoSE</a>
+
