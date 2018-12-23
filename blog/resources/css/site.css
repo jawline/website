@@ -8,29 +8,33 @@
   min-height: 44px !important;
 }
 
-.parsed-body h1 {font-size:18px;}
-.parsed-body h2 {font-size:18px; margin-top: 0px; text-align: center; }
-.parsed-body h3 {font-size:15px;}
+.parsed-body h1 {font-size:20px;}
+.parsed-body h2 {font-size:20px; margin-top: 0px; text-align: center; }
+.parsed-body h3 {font-size:18px;}
 .parsed-body a { color: #ff6e00; }
 .parsed-body a:hover { color: #ff6e00; opacity: 0.6; }
-.parsed-body p { font-size:15px; }
 .parsed-body {
   width: 99%;
   margin-left: auto;
   margin-right: auto;
 }
 
-@media (min-width: 992px) {
-  .parsed-body {
-    width: 99%;
-  }
+.parsed-body .container {
+	max-width: 1000px;
+  width: 100%;
 }
 
+/** Widescreen Devices **/
+@media (min-width: 1400px) {
 
-.parsed-body .container {
-  width: 100%;
-  padding-left: 2px;
-  padding-right: 2px;
+  .parsed-body {
+		width: 100em;
+	}
+
+	.parsed-body .container .panel-body {
+		padding-left: 4em;
+		padding-right: 4em;
+	}
 }
 
 /** Bootstrap overides */
