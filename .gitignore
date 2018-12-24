@@ -1,4 +1,4 @@
 main/
-md2ht/debug/
-md2ht/target/
+blog/md2ht/debug/
+blog/md2ht/target/
 .DS_Store

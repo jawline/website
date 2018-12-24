@@ -5,6 +5,7 @@ import time
 import json
 import glob
 import os
+import subprocess
 from shutil import rmtree, copyfile, copytree
 
 OUT_PATH="./bin/"
@@ -42,30 +43,34 @@ copytree("resources/", OUT_PATH)
 articles = []
 tag_dict = {};
 
-def write_article_from_template(article):
-    final_path = ARTICLES_PATH + article[0]["id"] + ".html";
-    with open(article[1], 'r') as article_file:
-        article_data = article_file.read()
-        final_data = ARTICLE_TEMPLATE;
-        final_data = final_data.replace('{{{ARTICLE_CONTENT}}}', article_data)
-        final_data = final_data.replace('{{{ARTICLE_TITLE}}}', article[0]["title"])
-        final_data = final_data.replace('{{{ARTICLE_TAGS}}}', ', '.join(article[0]["tags"]))
-        final_data = final_data.replace('{{{ARTICLE_TIME}}}', article[0]["human_time"])
-
-        with open(final_path, 'w') as output_file:
-            output_file.write(final_data) 
+#Handle converting the markdown to HTML and extracting the intro
+def get_article_html(filename):
+	#MD2HT converts our articles from markdown
+	return str(subprocess.check_output("./scripts/gen_html " + filename, shell=True))
 
 intro_regex = re.compile('<a-intro>(.*)</a-intro>', re.DOTALL);
 
+#Extract the info from the HTML portion
 def extract_intro(article):
-    with open(article[1], 'r') as article_file:
-        article_data = article_file.read()
-        matched = intro_regex.match(article_data)
-        if matched == None:
-            return ''
-        else:
-            return matched.group(1)
-                        
+	article_data = get_article_html(article[1])
+	matched = intro_regex.match(article_data)
+	if matched == None:
+			return ''
+	else:
+			return matched.group(1)
+
+def write_article_from_template(article):
+  final_path = ARTICLES_PATH + article[0]["id"] + ".html";
+  article_data = get_article_html(article[1])
+		
+  final_data = ARTICLE_TEMPLATE;
+  final_data = final_data.replace('{{{ARTICLE_CONTENT}}}', article_data)
+  final_data = final_data.replace('{{{ARTICLE_TITLE}}}', article[0]["title"])
+  final_data = final_data.replace('{{{ARTICLE_TAGS}}}', ', '.join(article[0]["tags"]))
+  final_data = final_data.replace('{{{ARTICLE_TIME}}}', article[0]["human_time"])
+
+  with open(final_path, 'w') as output_file:
+    output_file.write(final_data)                        
 
 for file in glob.glob("articles/*.json"):
     with open(file) as f:
