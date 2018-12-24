@@ -146,7 +146,7 @@ fn main() -> io::Result<()> {
 					.fold(String::new(), |last, next| format!("{}{}", last, next))
 			);
 		} else if is_code_block(&mut cursor) {
-			println!("<code>{}</code>", read_code_block(&mut cursor));
+			println!("<pre><code>{}</code></pre>", read_code_block(&mut cursor));
 		} else {
 			println!("<p>{}</p>", cursor.eat_paragraph().unwrap_or_else(|| "".to_string()));
 		}

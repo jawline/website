@@ -1,3 +1,3 @@
 #!/usr/bin/env bash
 TARGET_PATH=$(realpath "$1")
-(cd md2ht; cargo run "${TARGET_PATH}")
+(cd md2ht; cargo run --release "${TARGET_PATH}")

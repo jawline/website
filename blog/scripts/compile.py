@@ -46,15 +46,16 @@ tag_dict = {};
 #Handle converting the markdown to HTML and extracting the intro
 def get_article_html(filename):
 	#MD2HT converts our articles from markdown
-	return str(subprocess.check_output("./scripts/gen_html " + filename, shell=True))
+	return subprocess.check_output("./scripts/gen_html " + filename, shell=True).decode('utf-8')
 
 intro_regex = re.compile('<a-intro>(.*)</a-intro>', re.DOTALL);
 
 #Extract the info from the HTML portion
 def extract_intro(article):
 	article_data = get_article_html(article[1])
-	matched = intro_regex.match(article_data)
+	matched = intro_regex.search(article_data)
 	if matched == None:
+			print("No match in" + article_data)
 			return ''
 	else:
 			return matched.group(1)
@@ -76,7 +77,7 @@ for file in glob.glob("articles/*.json"):
     with open(file) as f:
         data = json.load(f)
         data["human_time"] = time.strftime('%Y-%m-%d %H:%M:%S', time.gmtime(float(data['create_date'])))
-        articles.append([data, file.replace(".json", ".html")])
+        articles.append([data, file.replace(".json", ".md")])
 
 os.mkdir(ARTICLES_PATH)
 
