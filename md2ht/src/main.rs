@@ -56,38 +56,37 @@ impl SourceWalker {
 		}
 	}
 
-	fn is_code_block(&self) -> bool {
-		const MARKER: Option<char> = Some('`');
-		self.peek_n(0) == MARKER && self.peek_n(1) == MARKER && self.peek_n(2) == MARKER
-	}
-
 	/**
    * Consume all lines until the next empty line or line starting with a special character
    */
-	pub fn eat_paragraph(&mut self) -> Option<String> {
-		let mut result = None;
-		while let Some(line) = self.eat_line() {
 
-			let line = line.trim().to_string();
+	pub fn consume_paragraph(&mut self) -> String {
 
-			//End loop if we read an empty line
-			if line.len() == 0 {
-				break;
+		let mut result = String::new();
+		let mut current_line = String::new();
+
+		while let Some(c) = self.eat() {
+			current_line = format!("{}{}", current_line, c);
+			if c == '\n' {
+				result = format!("{}{}", result, current_line);
+				if current_line.len() < 2 {
+					break;
+				}
+				current_line = String::new();
 			}
-
-			if let Some(current) = result {
-				result = Some(format!("{}\n{}", current, line));
-			} else {
-				result = Some(line);
-			}
- 
 		}
+
 		result
 	}
 
 	/**
 	 * Methods for consuming code blocks
 	 */
+
+	fn is_code_block(&self) -> bool {
+		const MARKER: Option<char> = Some('`');
+		self.peek_n(0) == MARKER && self.peek_n(1) == MARKER && self.peek_n(2) == MARKER
+	}
 
 	fn eat_code_block(&mut self) -> String {
 		self.munch(3);
@@ -122,8 +121,8 @@ impl SourceWalker {
 			self.eat();
 		}
 
-		let heading = self.eat_paragraph().unwrap_or_else(|| "".to_string());
-		format!("<h{}>{}</h{}>", depth, heading.trim(), depth)
+		let heading = self.eat_line().unwrap_or_else(|| "".to_string());
+		format!("<h{}>{}</h{}><hr>", depth, heading.trim(), depth)
 	}
 
 	/**
@@ -166,7 +165,7 @@ impl SourceWalker {
 			} else if self.is_code_block() {
 				result = format!("{}\n{}", result, self.consume_code_block());	
 			} else if !c.is_whitespace() {
-				result = format!("{}\n<p>{}</p>", result, self.eat_paragraph().unwrap_or_else(|| "".to_string()));
+				result = format!("{}\n<p>{}</p>", result, self.consume_paragraph());
 			} else {
 				self.munch(1);
 			}
