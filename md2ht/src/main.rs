@@ -60,19 +60,27 @@ impl SourceWalker {
    * Consume all lines until the next empty line or line starting with a special character
    */
 
-	pub fn consume_paragraph(&mut self) -> String {
+	fn consume_paragraph(&mut self) -> String {
 
 		let mut result = String::new();
 		let mut current_line = String::new();
 
 		while let Some(c) = self.eat() {
-			current_line = format!("{}{}", current_line, c);
-			if c == '\n' {
-				result = format!("{}{}", result, current_line);
-				if current_line.len() < 2 {
-					break;
+
+			if c == '[' {
+			} else if c == '`' {
+				current_line = format!("{}{}", current_line, self.consume_inline_code_block());
+			} else {
+				current_line = format!("{}{}", current_line, c);
+				if c == '\n' {
+					result = format!("{}{}", result, current_line);
+
+					if current_line.len() < 2 {
+						break;
+					}
+
+					current_line = String::new();
 				}
-				current_line = String::new();
 			}
 		}
 
@@ -107,6 +115,19 @@ impl SourceWalker {
 
 	fn consume_code_block(&mut self) -> String {
 		format!("<pre><code>{}</code></pre>", self.eat_code_block())
+	}
+
+	fn consume_inline_code_block(&mut self) -> String {
+		self.munch(1);
+
+		let mut result = String::new();
+
+		while let Some(c) = self.peek() {
+			if c == '`' { self.munch(1); break; }
+			result += &(c.to_string());
+		}
+
+		format!("<code>{}</code>", result)
 	}
 
 	/** 
