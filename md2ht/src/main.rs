@@ -111,8 +111,8 @@ impl SourceWalker {
 	}
 
 	/** 
-   * Methods for consuming headings 
-   */
+	 * Methods for consuming headings 
+	 */
 
 	fn consume_heading(&mut self) -> String {
 		let mut depth = 0;
@@ -180,12 +180,8 @@ impl SourceWalker {
 
 
 fn main() -> io::Result<()> {
-
 	let target_filename = args().nth(1).unwrap();
 	let mut cursor = SourceWalker::new(&target_filename)?;
 	println!("{}", cursor.consume());
-/*
-	*/
-
 	Ok(())
 }

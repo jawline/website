@@ -1,3 +1,4 @@
+(cd md2ht; cargo install --force --path .)
 (cd blog; ./scripts/compile.py)
 rm -rf main
 cp -r ./blog/bin ./main
