@@ -65,12 +65,18 @@ impl SourceWalker {
 		let mut result = String::new();
 		let mut current_line = String::new();
 
-		while let Some(c) = self.eat() {
+		while let Some(c) = self.peek() {
 
-			if c == '[' {
+			if c == '*' || c == '#' && current_line.len() == 0 {
+				break;
+			}
+
+			if let Some(link) = self.consume_link() {
+				current_line = format!("{}{}", current_line, link);
 			} else if c == '`' {
 				current_line = format!("{}{}", current_line, self.consume_inline_code_block());
 			} else {
+				self.munch(1);
 				current_line = format!("{}{}", current_line, c);
 				if c == '\n' {
 					result = format!("{}{}", result, current_line);
@@ -85,6 +91,64 @@ impl SourceWalker {
 		}
 
 		result
+	}
+
+	/**
+	 * Methods for consuming links
+	 */	
+
+	/**
+	 * Consume [...](...) and rewrite it to a link
+	 */
+	fn consume_link(&mut self) -> Option<String> {
+
+		if self.peek() != Some('[') {
+			return None;
+		}
+
+		let start_cursor = self.cursor;
+
+		let mut name = String::new();
+		let mut url = String::new();
+
+		loop {
+			let c = self.eat();
+			match c {
+				Some(c) => {
+					name += &(c.to_string());
+					if c == ']' { 
+						break;
+					}
+				},
+				None => {
+					self.cursor = start_cursor;
+					return None;
+				}
+			}
+		}
+
+		if self.peek() != Some('(') {
+			self.cursor = start_cursor;
+			return None;
+		}
+
+		loop {
+			let c = self.eat();
+			match c {
+				Some(c) => {
+					url += &(c.to_string());
+					if c == ')' { 
+						break;
+					}
+				},
+				None => {
+					self.cursor = start_cursor;
+					return None;
+				}
+			}
+		}
+
+		Some(format!("<a href=\"{}\">{}</a>", &url[1..url.len() - 1], &name[1..name.len() - 1]))
 	}
 
 	/**
@@ -119,14 +183,12 @@ impl SourceWalker {
 
 	fn consume_inline_code_block(&mut self) -> String {
 		self.munch(1);
-
 		let mut result = String::new();
-
 		while let Some(c) = self.peek() {
-			if c == '`' { self.munch(1); break; }
+			self.munch(1);
+			if c == '`' { break; }
 			result += &(c.to_string());
 		}
-
 		format!("<code>{}</code>", result)
 	}
 
@@ -155,10 +217,7 @@ impl SourceWalker {
 
 		while let Some('*') = self.peek() {
 			self.munch(1);
-
-			if let Some(line) = self.eat_line() {
-				result.push(line.trim().to_string());
-			}
+			result.push(self.consume_paragraph().trim().to_string());
 		}
 
 		result

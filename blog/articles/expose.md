@@ -32,15 +32,15 @@ ExpoSE avoids the issue of interpreter instrumentation by using the Jalangi2 fra
 
 ### Publications
 
-[ExpoSE: Practical Symbolic Execution of Standalone JavaScript](/papers/practical_dse.pdf)
-[Sound Regular Expression Semantics for Dynamic Symbolic Execution of JavaScript](/papers/sound_regex_in_js.pdf)
+* [ExpoSE: Practical Symbolic Execution of Standalone JavaScript](/papers/practical_dse.pdf)
+* [Sound Regular Expression Semantics for Dynamic Symbolic Execution of JavaScript](/papers/sound_regex_in_js.pdf)
 
 ### Resources
 
-[GitHub Source Code](http://github.com/ExpoSEJS/)
+* [GitHub Source Code](http://github.com/ExpoSEJS/)
 
 ### Tutorials
 
-[A Quick Start Guide to ExpoSE](/articles/expose_quickstart)
-[Logging in ExpoSE](/articles/expose_high_fidelity_logs)
+* [A Quick Start Guide to ExpoSE](/articles/expose_quickstart)
+* [Logging in ExpoSE](/articles/expose_high_fidelity_logs)
 
