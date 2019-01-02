@@ -1,14 +1,15 @@
-<a-intro>
+!!!!!
 JavaScript has evolved into a versatile ecosystem for not just the
 web, but also a wide range of server-side and client-side applications.
 With this increased scope, the potential impact of bugs increases.
 Despite this, testing tools for JavaScript have remained relatively primitive,
 largely due to the languages complex implementation and confusing specification.
 
+
 ExpoSE is a dynamic symbolic execution (DSE) tool for JavaScript with support for
 asynchronous events, strings, and complex regular expressions (including capture groups).
 It also supports concurrent test-case execution and provides detailed coverage statistics.
-</a-intro>
+!!!!!
 
 In DSE, some inputs to the program under test are made
 symbolic while the rest are fixed. Starting with an initial concrete assignment

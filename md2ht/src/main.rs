@@ -39,8 +39,8 @@ impl SourceWalker {
 	}
 
 	/**
-   * Consume until the next new line or EOF. Returns None if there is nothing left to be read.
-   */
+	 * Consume until the next new line or EOF. Returns None if there is nothing left to be read.
+	 */
 	pub fn eat_line(&mut self) -> Option<String> {
 		if let Some(_) = self.peek() {
 			let mut result = String::new();
@@ -67,24 +67,22 @@ impl SourceWalker {
 
 		while let Some(c) = self.peek() {
 
-			if c == '*' || c == '#' && current_line.len() == 0 {
+			if (c == '*' || c == '#' || self.is_intro_marker()) && current_line.len() == 0 {
 				break;
 			}
 
 			if let Some(link) = self.consume_link() {
-				current_line = format!("{}{}", current_line, link);
+				current_line += &link;
 			} else if c == '`' {
-				current_line = format!("{}{}", current_line, self.consume_inline_code_block());
+				current_line += &self.consume_inline_code_block();
 			} else {
 				self.munch(1);
-				current_line = format!("{}{}", current_line, c);
+				current_line += &c.to_string();
 				if c == '\n' {
-					result = format!("{}{}", result, current_line);
-
+					result += &current_line;
 					if current_line.len() < 2 {
 						break;
 					}
-
 					current_line = String::new();
 				}
 			}
@@ -192,6 +190,32 @@ impl SourceWalker {
 		format!("<code>{}</code>", result)
 	}
 
+	/**
+	 * Consume the intro header !!!!! ... !!!!! and rewrite to the <a-intro> flag
+	 */
+
+	fn is_intro_marker(&mut self) -> bool {
+		for i in 0..5 {
+			if self.peek_n(i) != Some('!') { 
+				return false;
+			}
+		}
+		true
+	}
+
+	fn consume_intro(&mut self) -> String {
+		let mut result = String::new();
+		while let Some(_) = self.peek() {
+			if self.is_intro_marker() {
+				self.munch(5);
+				break;
+			}
+			result += &format!("<p>{}</p>", self.consume_paragraph());
+		}
+		format!("<a-intro>{}</a-intro>", result)
+	}
+	
+
 	/** 
 	 * Methods for consuming headings 
 	 */
@@ -242,7 +266,9 @@ impl SourceWalker {
 				result = format!("{}\n{}", result, self.consume_heading());
 			} else if c == '*' {
 				result = format!("{}\n{}", result, self.consume_list());
-			} else if self.is_code_block() {
+			} else if self.is_intro_marker() {
+				result = format!("{}\n{}", result, self.consume_intro());
+			}  else if self.is_code_block() {
 				result = format!("{}\n{}", result, self.consume_code_block());	
 			} else if !c.is_whitespace() {
 				result = format!("{}\n<p>{}</p>", result, self.consume_paragraph());

@@ -1,38 +1,33 @@
-<a-intro>
+!!!!!
+When analyzing JavaScript software it is common to rewrite or instrument the program in some way in order to expose specific data during execution. Typically instrumentation of JavaScript in the browser is achieved by a proxy - a tool that rewrites JavaScript in network requests. In practice proxies typically do not perform well as there are often multiple entry points to a program and it can be hard to correctly rewrite all cases. Another alternative is modifying V8 to achieve the desired level of program instrumentation. Unfortunately, modern JavaScript interpreters are complex pieces of software and this often carries heavy technical and maintenance overheads. Instead we propose rewriting the JavaScript entry point within a browser to instrument source code, achieving a reasonable compromise between maintainability and development time. In this tutorial we are going to modify V8, the JavaScript interpreter used by Chromium, so that all JavaScript executed by Chromium can be rewritten by an instrumentation framework.
+!!!!!
 
-<p>When analyzing JavaScript software it is common to rewrite or instrument the program in some way in order to expose specific data during execution. Typically instrumentation of JavaScript in the browser is achieved by a proxy - a tool that rewrites JavaScript in network requests. In practice proxies typically do not perform well as there are often multiple entry points to a program and it can be hard to correctly rewrite all cases. Another alternative is modifying V8 to achieve the desired level of program instrumentation. Unfortunately, modern JavaScript interpreters are complex pieces of software and this often carries heavy technical and maintenance overheads. Instead we propose rewriting the JavaScript entry point within a browser to instrument source code, achieving a reasonable compromise between maintainability and development time. In this tutorial we are going to modify V8, the JavaScript interpreter used by Chromium, so that all JavaScript executed by Chromium can be rewritten by an instrumentation framework.</p>
+### Initial Setup
 
+To begin, we need a working clone of the Chromium source code. There is a good tutorial on building Chromium for the first time [here](https://www.chromium.org/developers/how-tos/get-the-code). Next we need to find the best point in Chromium to rewrite incoming JavaScript. We are looking for a point in Chromium through which all JavaScript source code, as such the V8 JavaScript interpreter is likely the ideal instrumentation point. As such, the file `v8/src/parsing/parse-info.cc` contains an ideal instrumentation point in the function `CreateScript`.
 
-</a-intro>
+### Rewriting incoming scripts
 
-<h3>Initial Setup</h3>
+To rewrite we are going to write the script to a file. Then we will call a separate program with a file path. We expect that file to be rewritten after this program terminates. To simplify development we will use an environment variable in order to pass the path of our instrumentation tool to Chromium:
 
-<p>To begin, we need a working clone of the Chromium source code. There is a good tutorial on building Chromium for the first time <a href="https://www.chromium.org/developers/how-tos/get-the-code">here</a>. Next we need to find the best point in Chromium to rewrite incoming JavaScript. We are looking for a point in Chromium through which all JavaScript source code, as such the V8 JavaScript interpreter is likely the ideal instrumentation point. As such, the file <code>v8/src/parsing/parse-info.cc</code> contains an ideal instrumentation point in the function <code>CreateScript</code>.</p>
+```auto instrumentPath = getenv("INSTR_PATH");
+```
 
-<h3>Rewriting incoming scripts</h3>
+Next we create a stub rewrite function which takes the path and the input source code:
 
-<p>To rewrite we are going to write the script to a file. Then we will call a separate program with a file path. We expect that file to be rewritten after this program terminates.</p>
+```Handle<String> rewrite(Isolate* isolate, Handle<String> source, char* rewriteCmd) {}
+```
 
-<p>To simplify development we will use an environment variable in order to pass the path of our instrumentation tool to Chromium:</p>
+We then call our new function at the start of `CreateScript`:
 
-<pre><code>auto instrumentPath = getenv("INSTR_PATH");</code></pre>
-
-<p>Next we create a stub rewrite function which takes the path and the input source code:</p>
-
-<pre><code>Handle<String> rewrite(Isolate* isolate, Handle<String> source, char* rewriteCmd) {}</code></pre>
-
-<p>We then call our new function at the start of <code>CreateScript</code>:</p>
-
-<pre><code>if (instrumentPath) { 
+```if (instrumentPath) { 
     source = rewrite(isolate, source, instrumentPath);
 }
-</code></pre>
+```
 
-<p>With this skeleton implementation done we can move on to creating our rewriting program.</p>
+Moving back to our new `rewrite` function, we first need to extract the program source code as a C-style string and construct a temporary file to place it in:
 
-<p>Moving back to our new <code>rewrite</code> function, we first need to extract the program source code as a C-style string and construct a temporary file to place it in:</p>
-
-<pre><code>/** Prepare a temp file for the rewrite and grab a c_str of the string **/
+```/** Prepare a temp file for the rewrite and grab a c_str of the string **/
 char newFileName[] = "/tmp/chrometmp.XXXXXXXXXXXX";
 char* origin = source->ToCString().get();
 
@@ -42,11 +37,11 @@ int fd = mkstemp(newFileName);
 if (fd == -1) {
     return source;
 }
-</code></pre>
+```
 
-<p>Next, we need to write the incoming source code into a file so that it can be instrumented:</p>
+Next, we need to write the incoming source code into a file so that it can be instrumented:
 
-<pre><code>FILE* f_path = fopen(newFileName, "w");
+```FILE* f_path = fopen(newFileName, "w");
     
 if (!f_path) {
     printf("Rewrite fopen error\n");
@@ -60,11 +55,11 @@ if (fwrite(origin, strlen(origin), 1, f_path) != 1) {
 }
 
 fclose(f_path);
-</code></pre>
+```
 
-<p>Then we rewrite the code by calling our instrumentation program:
+Then we rewrite the code by calling our instrumentation program:
 
-<pre><code>/** Issue a rewrite command **/
+```/** Issue a rewrite command **/
 
 std::string cmd = rewriteCmd;
 cmd += " ";
@@ -73,11 +68,12 @@ cmd += newFileName;
 if (system(cmd.c_str())) {
     print("Error rewrite\n");
     return source;
-}</code></pre>
+}
+```
 
-<p>Finally, we read in the new source code from the temporary file and return it as a V8 string</p>
+Finally, we read in the new source code from the temporary file and return it as a V8 string
 
-<pre><code>/** Re-open the file for reading **/
+```/** Re-open the file for reading **/
 
 f_path = fopen(newFileName, "r");
 
@@ -113,32 +109,35 @@ unlink(newFileName);
 Handle<String> result = isolate->factory()->NewStringFromAsciiChecked(modified); 
 free(modified);
 
-return result;</code></pre>
+return result;
+```
 
-<p>The result of this is a Chromium browser will now write all incoming JavaScript to a file, and then execute whatever is in that file after a instrumentation program executes.</p>
+The result of this is a Chromium browser will now write all incoming JavaScript to a file, and then execute whatever is in that file after a instrumentation program executes.
 
-<h3>When To Instrument</h3>
+### When To Instrument
 
-<p>Testing this we find that the browser fails to compile. This is due to the instrumentation of native scripts. To test for this we add the condition <code>natives == NativesFlag::NOT_NATIVES_CODE</code> to our rewrite condition so that we get:</p>
+Testing this we find that the browser fails to compile. This is due to the instrumentation of native scripts. To test for this we add the condition `natives == NativesFlag::NOT_NATIVES_CODE` to our rewrite condition so that we get:
 
-<pre><code>if (instrumentPath && natives == NativesFlag::NOT_NATIVES_CODE) { 
+```if (instrumentPath && natives == NativesFlag::NOT_NATIVES_CODE) { 
     source = rewrite(isolate, source, iPath);
-}</code></pre>
+}
+```
 
-<p>By adding this condition we ensure that we only rewrite a script if it not part of the Chromium internals.</p>
+By adding this condition we ensure that we only rewrite a script if it not part of the Chromium internals.
 
-<h3>Testing</h3>
+### Testing
 
-<p>Now we need a way to test whether our rewriting script works in practice. To achieve this lets build a simple bash script that instruments a file with a suffix of <code>console.log("Hello World");</code>.</p>
+Now we need a way to test whether our rewriting script works in practice. To achieve this lets build a simple bash script that instruments a file with a suffix of `console.log("Hello World");`.
 
-<pre><code>#!/bin/bash
+```#!/bin/bash
 echo "console.log('Hello World')" >> $1
-</code></pre>
+```
 
-<p>If we execute our Chromium build with the environment variable <code>INSTR_PATH=our_bash_script</code> we should see that Hello World is logged as every JavaScript file in parsed within webpages. Unfortunately, instead we see that each file open fails. This is a result of Chromium's sandboxing policy - which prevents the V8 parser of a webpage from writing to temporary files. To disable this policy we need to execute our Chromium instance with the <code>--no-sandbox</code> flag. After enabling this flag we should see 'Hello World' in each web page log:</p>
+If we execute our Chromium build with the environment variable `INSTR_PATH=our_bash_script` we should see that Hello World is logged as every JavaScript file in parsed within webpages. Unfortunately, instead we see that each file open fails. This is a result of Chromium's sandboxing policy - which prevents the V8 parser of a webpage from writing to temporary files. To disable this policy we need to execute our Chromium instance with the `--no-sandbox` flag. After enabling this flag we should see 'Hello World' in each web page log:
 
-<pre><code>[74489:775:0814/104653.194963:INFO:CONSOLE(61)] "Hello World", source: https://cdn.static.zdbb.net/eu/js/z0WVjCBSEeGLoxIxOQVEwQ.min.js (61)</code></pre>
+```[74489:775:0814/104653.194963:INFO:CONSOLE(61)] "Hello World", source: https://cdn.static.zdbb.net/eu/js/z0WVjCBSEeGLoxIxOQVEwQ.min.js (61)
+```
 
-<h3>Conclusions</h3>
+### Conclusions
 
-<p>Using this approach we can now modify instrumentation frameworks such as Jalangi2 for usage inside browsers with increased compatibility over alternative approaches. We are currently using this approach to modify our dynamic symbolic execution engine ExpoSE for use in browsers. It is important to note that the implementation in this article is very naive. A better solution for heavier workloads would be to use a rewriting server in order to reduce the runtime overhead.</p>
+Using this approach we can now modify instrumentation frameworks such as Jalangi2 for usage inside browsers with increased compatibility over alternative approaches. We are currently using this approach to modify our dynamic symbolic execution engine ExpoSE for use in browsers. It is important to note that the implementation in this article is very naive. A better solution for heavier workloads would be to use a rewriting server in order to reduce the runtime overhead.
