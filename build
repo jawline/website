@@ -5,10 +5,11 @@ echo "[+] Cleaning"
 rm -rf bin
 mkdir bin
 
-echo "[+] Downloading MDHS"
-
-git clone git@github.com:jawline/MarkdownHS.git
-(cd MarkdownHS; make)
+if [ ! -d "MarkdownHS" ] ; then
+  echo "[+] Downloading MDHS"
+  git clone git@github.com:jawline/MarkdownHS.git
+  (cd MarkdownHS; git pull; make)
+fi
 
 echo "[+] Building"
 
