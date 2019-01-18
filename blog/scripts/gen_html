@@ -1,3 +1,0 @@
-#!/usr/bin/env bash
-TARGET_PATH=$(realpath "$1")
-md2ht "${TARGET_PATH}"

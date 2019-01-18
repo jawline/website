@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+
+echo "[+] Cleaning"
+
+rm -rf bin
+mkdir bin
+
+echo "[+] Downloading MDHS"
+
+git clone git@github.com:jawline/MarkdownHS.git
+(cd MarkdownHS; make)
+
+echo "[+] Building"
+
+./MarkdownHS/bin/main "./sources/" "./bin/"

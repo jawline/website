@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+
+./build
+
+echo "[+] Deploying"
+(cd bin; gcloud app deploy app.yaml --project imcluelesssoftware)

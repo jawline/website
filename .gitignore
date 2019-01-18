@@ -1,4 +1,3 @@
-main/
-md2ht/debug/
-md2ht/target/
+bin/
+MarkdownHS/
 .DS_Store
