@@ -8,7 +8,27 @@ body {
   margin: 0;
   height: 100%;
   width: 100%;
-  background-color: #3A96B2;
+  font-family: siteFont;
+  font-size: 16px;
+}
+
+h1, h2, h3, h4, h5, h6, h6 {
+  font-family: siteFont;
+}
+
+@font-face {
+  font-family: siteFont;
+  src: url(/fonts/newscycle-regular.ttf);
+}
+
+@font-face {
+  font-family: siteFont;
+  src: url(/fonts/newscycle-bold.ttf);
+  font-weight: bold;
+}
+
+hr {
+  border-top: 1px solid #000;
 }
 
 /* Extra markup and styles for table-esque vertical and horizontal centering */
@@ -23,7 +43,19 @@ body {
 a,
 a:focus,
 a:hover {
-  color: #fff;
+  color: #000;
+}
+
+a { color: #ff6e00; }
+a:hover { color: #ff6e00; opacity: 0.6; }
+
+/**
+ * Content Containers
+ */
+
+.container {
+	max-width: 1000px;
+  width: 100%;
 }
 
 /*
@@ -51,9 +83,18 @@ a:hover {
   margin-top: 10px;
 }
 
+/**
+ * Navigation bar decoration
+ */
+
 .mynav {
   background-color: transparent;
+  border-bottom: 1px solid;
 }
+
+/**
+ * Navigation items decoration
+ */
 
 .masthead-nav {
   height: 100%;
@@ -75,32 +116,63 @@ a:hover {
   margin-left: 20px;
 }
 
+/*
+ * Navigation Buttons
+ */
+
+/**
+ * Text Sizes
+ */
+
 .mynav .masthead-nav > li > a,
 .mynav .masthead-nav > li > a:focus {
+  font-size: 24px;
+}
+
+.mynav .masthead-brand > a {
+  font-size: 30px;
+}
+
+/**
+ * Colors and hover
+ */
+
+.mynav .masthead-nav > li > a,
+.mynav .masthead-nav > li > a:focus,
+.mynav .masthead-brand > a,
+.mynav .masthead-brand > a:focus {
+  font-weight: bold;
   padding-right: 0;
   padding-left: 0;
-  ont-size: 20px;
-  color: #fff; /* IE8 proofing */
-  color: rgba(255,255,255);
+  color: rgba(0, 0, 0);
   border-bottom: 4px solid transparent;
 }
 
-.mynav .masthead-nav > li > a:hover {
+.mynav .masthead-nav > li > a:hover,
+.mynav .masthead-brand > a:hover {
   background-color: transparent;
   border-bottom-color: #a9a9a9;
-  border-bottom-color: rgba(255,255,255,.25);
+  border-bottom-color: rgba(0, 0, 0,.25);
+  text-decoration: none;
 }
 
+.mynav .masthead-nav > li > a:hover,
+.mynav .masthead-brand > a:hover {
+  color: rgba(0, 0, 0,.55);
+}
+
+/*
+ * Active Navigation Button
+ */
 .masthead-nav > .active > a,
 .masthead-nav > .active > a:hover {
-  color: #fff;
-  border-bottom-color: #fff;
+  color: #000;
+  border-bottom-color: #000;
 }
 
-.mynav .masthead-nav > li > a:hover {
-  color: rgba(255,255,255,.55);
-}
-
+/*
+ * Split up the nav branding and button if screen is big enough
+ */
 @media (min-width: 768px) {
   .masthead-brand {
     float: left;

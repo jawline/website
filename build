@@ -2,8 +2,8 @@
 
 echo "[+] Cleaning"
 
-rm -rf bin
-mkdir bin
+rm -rf ./bin/*
+mkdir -p bin
 
 if [ ! -d "MarkdownHS" ] ; then
   echo "[+] Downloading MDHS"

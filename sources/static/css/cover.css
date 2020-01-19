@@ -1,16 +1,16 @@
 body {
-  color: #fff;
-  text-align: center;
+  color: #000;
+  text-align: left;
 }
 
 /* Custom default button */
 .btn-default,
 .btn-default:hover,
 .btn-default:focus {
-  color: #333;
+  color: rgba(0, 0, 0, .55);
   text-shadow: none; /* Prevent inheritence from `body` */
   background-color: #fff;
-  border: 1px solid #fff;
+  border: 1px solid #000;
 }
 
 .site-wrapper-inner {
@@ -30,10 +30,7 @@ body {
 .center {
   margin-left: auto;
   margin-right: auto;
-}
-
-.site-wrapper hr {
-  opacity: 0.2;
+  text-align: center;
 }
 
 .site-wrapper .intro-image {
@@ -75,13 +72,20 @@ body {
   font-weight: bold;
 }
 
+/* Handle the widths */
+.masthead,
+.mastfoot,
+.cover-container {
+  width: 100%; /* Must be percentage or pixels for horizontal alignment */
+}
+
 /*
  * Footer
  */
 
 .mastfoot {
   color: #999; /* IE8 proofing */
-  color: rgba(255,255,255,.75);
+  color: rgba(0, 0, 0,.75);
   margin-top: 10px;
 }
 
@@ -103,18 +107,5 @@ body {
   .site-wrapper-inner {
     vertical-align: middle;
   }
-  /* Handle the widths */
-  .masthead,
-  .mastfoot,
-  .cover-container {
-    width: 100%; /* Must be percentage or pixels for horizontal alignment */
-  }
 }
 
-@media (min-width: 992px) {
-  .masthead,
-  .mastfoot,
-  .cover-container {
-    width: 700px;
-  }
-}

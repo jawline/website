@@ -11,17 +11,11 @@
 .parsed-body h1 {font-size:20px;}
 .parsed-body h2 {font-size:20px; margin-top: 0px; text-align: center; }
 .parsed-body h3 {font-size:18px;}
-.parsed-body a { color: #ff6e00; }
-.parsed-body a:hover { color: #ff6e00; opacity: 0.6; }
+
 .parsed-body {
   width: 99%;
   margin-left: auto;
   margin-right: auto;
-}
-
-.parsed-body .container {
-	max-width: 1000px;
-  width: 100%;
 }
 
 /** Widescreen Devices **/
