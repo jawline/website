@@ -1,6 +1,6 @@
 !=!=! Title: A Short Tutorial on Logging in ExpoSE
 !=!=! Created: 1533847431.223146
-!=!=! Tags: ExpoSE, Tutorials, JavaScript
+!=!=! Tags: ExpoSE, Tutorials, JavaScript, Projects
 !=!=! Intro: Start
 The concurrent execution of test-cases and JavaScript compilation process can make logging test-case output confusing in ExpoSE. In this short tutorial I explain how to enable test-case logging and give quick configurations.
 !=!=! Intro: End

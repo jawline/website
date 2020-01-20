@@ -1,6 +1,6 @@
 !=!=! Title: Detecting Humanity - Brave Software
 !=!=! Created: 1533833028.846177
-!=!=! Tags: Work, Research
+!=!=! Tags: Work, Research, Projects
 
 !=!=! Intro: Start
 During a research internship at Brave Software in 2018 I worked on verifiable client side humanity detection tools. This work is a deployment of anomaly detection to identify client humanity through runtime behaviour. Humanity detection is an issue in software development, where automation tools have forced deployment of obtrusive countermeasures (e.g. CAPTCHA). The biggest concerns raised by this approach are privacy and verifiability, as the proof of humanity is on client side but must be verifiable by a third party (Brave) without exposing private user data.

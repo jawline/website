@@ -1,6 +1,6 @@
 !=!=! Title: ExpoSE: A Quick Start Guide
 !=!=! Created: 1533896630.641723
-!=!=! Tags: Tutorials, ExpoSE, JavaScript
+!=!=! Tags: Tutorials, ExpoSE, JavaScript, Projects
 !=!=! Intro: Start
 In this tutorial I explain how to use the <a href="/articles/expose">ExpoSE</a> dynamic symbolic execution (DSE) tool. First I run through how to use ExpoSE with some simple JavaScript test-cases and then explain how to interpret the results.
 !=!=! Intro: End

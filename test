@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+./build
+(cd bin; python -m SimpleHTTPServer)

@@ -1,6 +1,6 @@
 !=!=! Title: How to Instrument JavaScript in Chromium
 !=!=! Created: 1533847554.552199
-!=!=! Tags: JavaScript, Tutorials, Chromium
+!=!=! Tags: JavaScript, Tutorials, Chromium, Projects
 !=!=! Intro: Start
 When analyzing JavaScript software it is common to rewrite or instrument the program in some way in order to expose specific data during execution. Typically instrumentation of JavaScript in the browser is achieved by a proxy - a tool that rewrites JavaScript in network requests. In practice proxies typically do not perform well as there are often multiple entry points to a program and it can be hard to correctly rewrite all cases. Another alternative is modifying V8 to achieve the desired level of program instrumentation. Unfortunately, modern JavaScript interpreters are complex pieces of software and this often carries heavy technical and maintenance overheads. Instead we propose rewriting the JavaScript entry point within a browser to instrument source code, achieving a reasonable compromise between maintainability and development time. In this tutorial we are going to modify V8, the JavaScript interpreter used by Chromium, so that all JavaScript executed by Chromium can be rewritten by an instrumentation framework.
 !=!=! Intro: End
