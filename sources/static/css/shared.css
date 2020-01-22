@@ -32,6 +32,13 @@ hr {
   border-top: 1px solid #000;
 }
 
+/**
+ * Override line-wrap on code blocks
+ */
+code {
+  white-space: normal !important;
+}
+
 /* Extra markup and styles for table-esque vertical and horizontal centering */
 .site-wrapper {
   display: table;
@@ -76,6 +83,11 @@ a:hover { color: #000; opacity: 0.6; }
 
 .header nav {
   height: 100%;
+}
+
+.header nav ul {
+  padding: 0;
+  margin: 0;
 }
 
 .header nav li {
@@ -194,6 +206,7 @@ a:hover { color: #000; opacity: 0.6; }
  */
 
 .footer {
+  text-align: center;
   color: #999; /* IE8 proofing */
   color: rgba(0, 0, 0,.75);
   margin-top: 10px;
