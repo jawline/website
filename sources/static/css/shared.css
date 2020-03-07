@@ -166,6 +166,7 @@ a:hover { color: #000; opacity: 0.6; }
 }
 
 .site-wrapper .intro-image {
+  margin-top: 50px;
   margin-left: auto;
   margin-right: auto;
   display: block;
