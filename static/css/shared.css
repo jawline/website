@@ -193,6 +193,10 @@ a:hover { color: #000; opacity: 0.6; }
   max-width: 150px;
 }
 
+.cover-container .container .row {
+  padding: 10px;
+}
+
 /* Handle the widths */
 .header,
 .footer,
