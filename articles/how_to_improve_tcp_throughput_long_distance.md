@@ -3,7 +3,7 @@
 !=!=! Tags: Projects 
 
 !=!=! Intro: Start
-The vast majority of HTTP communications use the TCP protocol to transfer both the request and response contents. TCP connections deliver data in-order and without packet loss through the use of retransmits and message buffers. Since buffers need to store all sent messages before they are acknowledged, the maximum achievable throughput of a TCP connection is calculatable by a function of buffer size and latency. In long distance communications, this maximum throughput is often lower than the line speed, slowing down the connection on a line that could support faster communications. In this article we explore what impact these buffers have on TCP connection throughput in Linux for HTTP file downloads, demonstrating performance improvements of up to 6x over Ubuntu defaults on a connection with a 200ms ping.
+The vast majority of HTTP communications use the TCP protocol to transfer data. TCP connections deliver data in-order and without message loss through the use of retransmits and message buffers. Since buffers need to store all sent messages before they are acknowledged, the maximum achievable throughput of a TCP connection is calculatable by a function of buffer size and latency. In long distance communications, this maximum throughput is often lower than the line speed, slowing down the connection on a line that could support faster communications. In this article we explore what impact these buffers have on TCP connection throughput in Linux for HTTP file downloads, demonstrating performance improvements of up to 6x over Ubuntu defaults on a connection with a 200ms ping.
 !=!=! Intro: End
 
 # TLDR; 
@@ -58,14 +58,13 @@ To test bandwidth we set the large file downloading with a time limit of ten min
 # run_tests
 while read p; do
   echo "# Starting test with $p"
-  echo "# $p"
   ./configure_settings "${p}"
 
   echo "# Sleeping"
   sleep 240
 
   echo "# Going"
-  timeout 10m curl http://dev.parsed.uk/100mb.data --output /dev/null
+  timeout 10m curl http://dev.parsed.uk/file.data --output /dev/null
 
 done < test.txt 
 ```
@@ -79,7 +78,6 @@ sysctl -w net.core.wmem_max=2147483647
 sysctl -w net.core.rmem_max=2147483647
 sysctl -w net.core.optmem_max=50331648
 sysctl -w net.ipv4.tcp_mem="2097152 2097152 2097152"
-#echo "Set to $1"
 sysctl -w net.ipv4.tcp_rmem="$1"
 sysctl -w net.ipv4.tcp_wmem="$1"
 sysctl -w net.ipv4.route.flush=1
