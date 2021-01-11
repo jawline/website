@@ -240,9 +240,9 @@ skip ('\t':xs) = skip xs
 skip xs = xs
 ```
 
-We then need to call this function before any parsing step where whitespace should be ignored. Particularly, before parsing values, values or control characters in arrays, and keys or values in objects. For example, to use skip in `parseJson` we replace `parseJson` by `parseJsonInner` and call it using a new `parseJson` that skips whitespace:
+We then need to call this function before any parsing step where whitespace should be ignored. Particularly, before parsing values or characters like ':' in arrays and objects. To use skip in `parseJson` we replace `parseJson` by `parseJsonInner` and call it using a new `parseJson` that skips whitespace:
 ```
 parseJson :: String -> (JSValue, String)
 parseJson xs = parseJsonInner (skip xs)
 ```
-Skip also needs to be applied during parsing of arrays and objects. [An example implementation including all instances of skip can be found here on GitHub](https://github.com/jawline/JSON-Parser)
+Skip also needs to be applied during parsing of arrays and objects. [An example implementation including all instances of skip can be found here on GitHub](https://github.com/jawline/JSON-Parser).
