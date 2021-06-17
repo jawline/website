@@ -1,3 +1,4 @@
 bin/
 MarkdownHS/
 .DS_Store
+_build/

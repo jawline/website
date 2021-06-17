@@ -86,7 +86,7 @@ This script sets the TCP parameters for the test. The scripts are available on G
 
 ## Results & Conclusions
 
-![Results Graph](${{{img:tcp_graph.png:original}}})
+![Results Graph](${{{img:tcp_graph.png}}})
 
 From our results we see that the TCP buffer sizes have a significant impact on throughput long distance. The maximum throughput observed during testing (21MB/s) was over 6x faster than the throughput for the client with a default configuration (~3-4MB/s). We observe that increases in buffer size correlate with increased in throughput until we reach 64MB TCP buffers. In our tests we see throughput peak at 21MB/s, and see no further gain in increasing buffer sizes beyond this. This is likely a limitation of one of the two servers, or the network that links them together. If our testing was not limited by other factors, we should observe further increases in performance was we increase TCP buffer sizes beyond that. Additionally, note that our testing is not rigerous, we performed a single test at each TCP memory increments and do not control for external factors such as network fluctuations or peak time load at the datacenter. Regardless, the limited testing methodology is still sufficient to show the clear trend of increasing throughput with TCP buffer sizes.
 

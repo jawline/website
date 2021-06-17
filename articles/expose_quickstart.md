@@ -2,12 +2,12 @@
 !=!=! Created: 1533896630.641723
 !=!=! Tags: Tutorials, ExpoSE, JavaScript, Projects
 !=!=! Intro: Start
-In this tutorial I explain how to use the <a href="/articles/expose">ExpoSE</a> dynamic symbolic execution (DSE) tool. First I run through how to use ExpoSE with some simple JavaScript test-cases and then explain how to interpret the results.
+In this tutorial I explain how to use the [ExpoSE](${{{article:ExpoSE: Practical Symbolic Execution Of Standalone JavaScript}}}) dynamic symbolic execution (DSE) tool. First I run through how to use ExpoSE with some simple JavaScript test-cases and then explain how to interpret the results.
 !=!=! Intro: End
 
 ### Installation
 
-ExpoSE requires a Node.js installation. Many different versions of Node.js will work, but we test with version v8.11 and recommend to swap to it if there are any issues with installation. We also require that python, git and clang be installed as part of the [Z3Javascript](/articles/z3javascript) build process.
+ExpoSE requires a Node.js installation. Many different versions of Node.js will work, but we test with version v8.11 and recommend to swap to it if there are any issues with installation. We also require that python, git and clang be installed as part of the [Z3Javascript](article:Z3JavaScript - Native Z3 Bindings for Node.js) build process.
 
 To begin, download a copy of ExpoSE using the command `git clone git@github.com:ExpoSEJS/ExpoSE.git` and then enter the created directory. Once there, execute the command `npm install` to begin the installation process. This can take some time as the Z3 SMT Solver needs to be compiled for use with Node.js. 
 
@@ -66,4 +66,4 @@ The errors in the output comes from the `throw '...'` in our test script. In the
 
 Finally, we have program coverage information. This details how much of the program we explored during symbolic execution. In this case we see that we covered 100% of the lines of the program, this means that each line in the program was executed at least once during test-case execution. This does not mean that each test-case touched every single line in the program.
 
-Note that, by default ExpoSE does not include the stdout of each test case in its output. A tutorial on how to enable test case logging is available [here](/articles/expose_high_fidelity_logs).
+Note that, by default ExpoSE does not include the stdout of each test case in its output. A tutorial on how to enable test case logging is available [here](${{{article:A Short Tutorial on Logging in ExpoSE}}}).
