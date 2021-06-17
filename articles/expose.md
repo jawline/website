@@ -2,7 +2,7 @@
 !=!=! Tags: Projects, Research, Papers
 !=!=! Created: 1533834600.512846
 
-![ExpoSE](${{{img:expose.png}}})
+![ExpoSE](${{{img:expose.png}}} =300x)
 
 !=!=! Intro: Start
 JavaScript has evolved into a versatile ecosystem for not just the
