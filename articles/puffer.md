@@ -2,7 +2,7 @@
 !=!=! Tags: Projects
 !=!=! Created: 1628955411
 
-<img src="/images/puffer.png" width="300px" />
+![Puffer](${{{img:puffer.png}}} =x300)
 
 !=!=! Intro: Start
 Puffer is a novel whole system privacy protector & ad-blocker for Android that outperforms existing DNS based solutions through inspection of Server Name Indication (SNI) records during initialization of TLS connections. Our solution cannot be circumvented with custom DNS resolvers or other common circumvention approaches because we inspect connections at the packet level. As such, our approach still works out of the box with browsers that use custom DNS approaches like Firefox. It also works to stop advertising in apps from circumventing ad-blockers.
