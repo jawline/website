@@ -1,6 +1,6 @@
 !=!=! Title: How to speed up long-distance HTTP file downloads by 6x
 !=!=! Created: 10-12-2020
-!=!=! Tags: Projects 
+!=!=! Tags: Projects, Web, Networking 
 
 !=!=! Intro: Start
 The vast majority of HTTP communications use the TCP protocol to transfer data. TCP connections deliver data in-order and without message loss through the use of retransmits and message buffers. Since buffers need to store all sent messages before they are acknowledged, the maximum achievable throughput of a TCP connection is calculatable by a function of buffer size and latency. In long distance communications, this maximum throughput is often lower than the line speed, slowing down the connection on a line that could support faster communications. In this article we explore what impact these buffers have on TCP connection throughput in Linux for HTTP file downloads, demonstrating performance improvements of up to 6x over Ubuntu defaults on a connection with a 200ms ping.
