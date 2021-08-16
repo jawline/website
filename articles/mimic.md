@@ -1,5 +1,5 @@
 !=!=! Title: Mimic
-!=!=! Tags: Projects
+!=!=! Tags: Projects, Emulators
 !=!=! Created: 1628955411
 
 ![Mimic](${{{img:mimic.png}}})
