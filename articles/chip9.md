@@ -36,17 +36,27 @@ The instructions are all stored big-endian and are generally straightforward in 
 
 ### CPU
 
+The cpu structure contains the current registers and the three instruction implementation tables main, math, and loads. On creation the cpu will initialize a fresh set of registers with the program counter set to the default program start location as well as new instances of each of the instruction jump tables in a support structure. The cpu implements a step function which takes a reference to the system memory and moves the program forward by a single instruction. The cpu does handle the decrementing of the delay or sound timing registers.
+
+To execute an instruction the base opcode is extracted from the front nibble of the two byte opcode. The corresponding opcode implementation is then selected from the main opcode table and it's execute function is called with references to the system memory and the opcode table support structure. The support structure is supplied so that the instruction implementation may call implementations from the math or load opcode tables when required.
+
 ### Memory
 
 A CHIP-8 machine has 4kb of user addressable R/W RAM which is used for program code and data. It also has a small region of read only memory for storing sprites of the characters 0 through F. Memory is addressed through the 16-bit register I which is positioned using dedicated opcodes. There is also a 64x32 1-bit frame buffer which can only be interacted with through the clear display and draw sprite instructions.
+
+The memory structure encapsulates these two memory regions and provides methods for 8 and 16 bit reads and writes to memory locations. Instructions can use these methods to set / get memory at locations without needing to worry about machine ordering.
 
 ### Display
 
 CHIP-8 systems use a 64 by 32 black and white display. The display is one bit, and is unable to show shades of gray. Internally this is represented through a boolean frame buffer with space for 64x32 boolean values. There is no vertical synchronization or double buffering logic in CHIP-8, instead the screen can be redrawn after every frame buffer operation. This can lead to visual artifacting but generally games design around this.
 
+The display framebuffer is stored in the Memory structure and is updated by the draw and clear display instructions in Cpu.
+
 ### Sound
 
 CHIP-8 can only play a sound through it's sound register. A sound while play whenever the value in the register is not zero. While the register is not zero it will tick down at a frequency of 60hz.
+
+The sound register is stored in the Registers structure and decremented by the step function in the Machine structure.
 
 ### Source Code
 
