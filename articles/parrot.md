@@ -11,10 +11,10 @@ Parrot is an opinionated static website generator written in Ocaml. A static web
 ### Overview
 
 Parrot splits the structure of a website into four types of file:
-- Static: Resources that are entirely static and do not change on build. These files are just copied into the build artifact and do not have access to the template engine. Typically used for CSS resources.
-- Image: We treat images as a special type of static resource so that files can be processed during build and referenced symbolically using the templating engine. This allows for straightforward web optimization and less painful reorganization.
-- Article: Bodies of content written in Markdown and rendered into HTML by Parrot before being placed in the build artifact. Every article includes a title, date, a set of tags and an optional introduction. These allow for it to be seamlessly transposed into a HTML artifact. Articles can be referenced by other templated pages and are organized into browsable lists through a set of tags. When presented in a list, the article introduction is presented alongside the title to give the reader an idea of the content.
-- Lists: Browsable sets of articles systematically generated from tags. These can be linked to from the navigation bar or any other templated page. Lists form the foundation of discoverability on a Parrot website.
+- **Static**: Resources that are entirely static and do not change on build. These files are just copied into the build artifact and do not have access to the template engine. Typically used for CSS resources.
+- **Image**: We treat images as a special type of static resource so that files can be processed during build and referenced symbolically using the templating engine. This allows for straightforward web optimization and less painful reorganization.
+- **Article**: Bodies of content written in Markdown and rendered into HTML by Parrot before being placed in the build artifact. Every article includes a title, date, a set of tags and an optional introduction. These allow for it to be seamlessly transposed into a HTML artifact. Articles can be referenced by other templated pages and are organized into browsable lists through a set of tags. When presented in a list, the article introduction is presented alongside the title to give the reader an idea of the content.
+- **Lists**: Browsable sets of articles systematically generated from tags. These can be linked to from the navigation bar or any other templated page. Lists form the foundation of discoverability on a Parrot website.
 
 In addition to these components we require a template for the index file, the first page displayed when you visit the website. This is a special case and can include any content.
 
