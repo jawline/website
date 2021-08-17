@@ -2,6 +2,8 @@
 !=!=! Tags: Projects, Emulators
 !=!=! Created: 1628955411
 
+![CHIP-9](${{{img:chip9/logo.png}}} =x300)
+
 !=!=! Intro: Start
 This project implements as CHIP-8 emulator / interpreter in Rust and use the CLI and the input and output device, allowing you to play CHIP-8 games on the command line. The emulator is written in Rust with a custom emulation core and uses the console_engine library for IO.
 !=!=! Intro: End
