@@ -108,7 +108,7 @@ embedding a link in a HTML fragment, such as a template, you would use an
 #### Linking to articles
 
 Like lists, articles can be referenced in content using template strings. The
-template string format for articles is `${{{article:Article Title}}}` and
+template string format for articles is `${{{article:Article Uuid}}}` and
 these templates can be used in the same places as list template strings.
 
 #### Images
