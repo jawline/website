@@ -20,12 +20,12 @@ are written in Rust.
 **TLDR;** Visit [this samples site](https://dev.parsed.dev/wav_samples/) for to
 listen to a set of computer generated Gameboy songs.
 
-### Overview 
+## Overview 
 
 The project is split into four individual tools that make up a data collection,
 training, and synthesis pipeline.
 
-#### Emulator
+### Emulator
 
 We modify the Mimic Gameboy emulator to support a fast playback mode (headless)
 which can run games in parallel at 50x speed on my personal machine.  The
@@ -36,7 +36,7 @@ buttons for an interval and then recording the period afterwards. We do not
 record the period where buttons are being pressed to reduce the number of sound
 effects that leak into samples.
 
-#### Pruner
+### Pruner
 
 Our data pruner is a small utility program that selects subsequences of
 emulator audio recordings for use as training data. Here, we discard samples
@@ -44,7 +44,7 @@ that don't mean heuristic quality controls (For example, where amplitude is
 consistently low) or that we heuristically decide is not music and then take a
 spread of remaining samples from throughout the emulation.
 
-#### Predictor
+### Predictor
 
 Once we have collected and pruned our data we use the Predictor program to both
 train a new model and synthesize novel audio from that model.  The predictor is
@@ -55,7 +55,7 @@ architecture specified in model.py. In generate mode the predictor will use a
 model of the same architecture to predict new samples from a randomly selected
 seed and output them to a file for playback.
 
-#### Convertor
+### Convertor
 
 Until now, our representation of all of our audio samples has been in a custom
 format that captures the instructions sent to audio hardware and their times.
@@ -63,7 +63,7 @@ To enjoy our synthesized music we now need to convert it into an audio wave and
 write it to a file. Our final utility, convert2wav does exactly this, taking
 any file encoded in our sample format and writing a .wav file as output.
 
-#### Audio Format
+### Audio Format
 
 Gameboy audio recordings are represented as 3-tuples of instruction, cycles
 since the last Instruction, and channel. The possible types of Instruction are:
@@ -97,7 +97,7 @@ python predictor/src/Predictor.py --mode split_data --source-dir ./pruned/
 --training-data ~/scratch/training-data --test-data ~/scratch/test_data
 --model-dir ./local.model/ --output-path /tmp/ && ./scripts/generate_in_a_loop` 
 
-#### Training data collection
+### Training data collection
 
 We collected a large corpus of Gameboy ROM files from the internet archive. We
 then let those ROMs run in an emulator each for ten minutes (real-time). To
@@ -116,7 +116,7 @@ python predictor/src/Predictor.py --mode split_data --source-dir ./pruned/
 --training-data ~/scratch/training-data/ --test-data ~/scratch/test_data/
 --model-dir ./local.model/`
 
-#### Model Training
+### Model Training
 
 Now that we have prepared some data, model training is straightforward. Simply
 run `python predictor/src/Predictor.py --mode fresh --training-data
@@ -131,7 +131,7 @@ last epoch.
 ~/scratch/training-data --test-data ~/scratch/test_data --model-dir
 ./local.model/ --output-path /tmp/`
 
-#### Music Sample Generation
+### Music Sample Generation
 
 To generate individual samples using the model we have trained we can run run
 `python predictor/src/Predictor.py --mode generate --training-data ./fast-test
@@ -144,7 +144,7 @@ something in our testing data set.
 
 **TLDR;** `./scripts/generate_in_a_loop`
 
-#### Converting recordings to WAV files
+### Converting recordings to WAV files
 
 Once we have generated some audio samples we need to convert from them into
 audio files. The audio converter will automatically discard obviously bad
