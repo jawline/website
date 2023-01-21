@@ -1,3 +1,4 @@
+!=!=! Uuid: 84646f38-8045-49cc-9516-7990bdbcfc52
 !=!=! Title: A Solution To Compression Oracles on the Web - Cloudflare
 !=!=! Created: 1533833022.682019
 !=!=! Tags: Work, Research, Projects

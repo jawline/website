@@ -8,7 +8,8 @@ for FILE in ./articles/*; do
     uuid=$(uuidgen)
     file_contents=$(cat "${FILE}")
     file_contents=$(printf "!=!=! Uuid: %s\n%s" "${uuid}" "${file_contents}")
-    echo "${file_contents}"
+    echo "${file_contents}" > "${FILE}"
+  
   fi
 
 done

@@ -1,3 +1,4 @@
+!=!=! Uuid: 5bb6c371-c271-4f99-975b-1c84bfc646fe
 !=!=! Title: Mimic
 !=!=! Tags: Projects, Emulators
 !=!=! Created: 1629123785
@@ -67,4 +68,3 @@ The Gameboy clock interacts with the CPU through special memory registers or thr
 ![Screenshot](${{{img:mimic/screenshot2.png}}})
 ![Screenshot](${{{img:mimic/screenshot3.png}}})
 ![Screenshot](${{{img:mimic/screenshot6.png}}})
-

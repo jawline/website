@@ -1,3 +1,4 @@
+!=!=! Uuid: 42652edd-cac6-4aea-b421-cfe012b9083a
 !=!=! Title: Simplifying endianness sensitive file parsers in Rust with Omnom
 !=!=! Created: 09-01-2021
 !=!=! Tags: Projects
