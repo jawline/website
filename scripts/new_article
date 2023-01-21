@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+set -euvx
+DATE=$(date +%s)
+UUID=$(uuidgen)
+
+cat > articles/$1.md << EndOfMessage
+!=!=! Uuid: ${UUID}
+!=!=! Title: ${2}
+!=!=! Created: ${DATE}
+!=!=! Tags: Work, Research, Projects
+
+!=!=! Intro: Start
+Add a short introduction here.
+!=!=! Intro: End
+
+Add main body of text here.
+EndOfMessage

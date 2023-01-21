@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+
+
+for FILE in ./articles/*; do
+  if grep -q "!=!=! Uuid:" "${FILE}"; then
+    echo "${FILE} already has a uuid"
+  else
+    uuid=$(uuidgen)
+    file_contents=$(cat "${FILE}")
+    file_contents=$(printf "!=!=! Uuid: %s\n%s" "${uuid}" "${file_contents}")
+    echo "${file_contents}"
+  fi
+
+done
