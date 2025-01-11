@@ -55,7 +55,7 @@ sudo make headers_install
 INSTALL_MOD_STRIP=1 sudo make modules_install
 ```
 
-The first command installs the kernel itself into our boot directory. The second installs the kernel headers, so that programswe compile on this machine can reference them. The final command installs the kernel modules we built alongside our kernel and then prepares an initrd, a small disk image that is loaded as a read only filesystem early on during the computer boot process and before it has loaded filesystem drivers. We specify `INSTALL_MOD_STRIP=1` to strip metadata from the compiled modules, leaving only the necessary code. This step is optional, but in many distributions the `/boot` partition is created with a small amount of space available, and unstripped kernel modules will not fit.
+The first command installs the kernel itself into our boot directory. The second installs the kernel headers, so that programs we compile on this machine can reference them. The final command installs the kernel modules we built alongside our kernel and then prepares an initrd, a small disk image that is loaded as a read only filesystem early on during the computer boot process and before it has loaded filesystem drivers. We specify `INSTALL_MOD_STRIP=1` to strip metadata from the compiled modules, leaving only the necessary code. This step is optional, but in many distributions the `/boot` partition is created with a small amount of space available, and unstripped kernel modules will not fit.
 
 #### Updating the bootloader
 
