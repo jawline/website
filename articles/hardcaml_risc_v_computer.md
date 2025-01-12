@@ -15,7 +15,11 @@ This article will be split into the following parts:
 - Part 3: I/O
 - Part 4: Video
 
+## Motivation
+
 TODO: Motivate a computer
+
+## Overview
 
 It is easy to assume that the most complicated component of such a system will
 be the CPU itself, but in practice for such a simple architecture the bulk of
@@ -43,3 +47,5 @@ the CPU, IO, and video controllers each having a line to make read requests
 from and the CPU and IO controllers having a line to make write requests to. In
 reality, the CPU will actually have several read lines so that the fetcher and
 executors can work independently, but this is an implementation detail.
+
+## Implementation
